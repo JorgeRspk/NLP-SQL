@@ -233,7 +233,7 @@ class QueryRequest(BaseModel):
 # Ruta principal para hacer consultas en lenguaje natural
 @app2.post("/get_sql_query/")
 async def run_query(request: QueryRequest):
-    input_prompt = f"Genera un script sql desde el archivo ubicado en '{request.question}'"
+    input_prompt = f"Genera un script sql desde el archivo ubicado en '{request.question}', motor de base de datos postgresql"
     result = agent_executor.invoke({"input": input_prompt, "chat_history": chat_history })
     save_script(result.get('output'), 'output.sql')
     save_history(result, input_prompt)
@@ -241,7 +241,7 @@ async def run_query(request: QueryRequest):
 
 @app2.post("/sql_to_html/")
 async def run_query2(request: QueryRequest):
-    input_prompt2 = f"Genera un html a partir del archivo '{request.question}'"
+    input_prompt2 = f"Genera un html a partir del archivo '{request.question}', dame ademas botones funcionales con javascript"
     result = agent_executor2.invoke({"input": input_prompt2, "chat_history": chat_history })
     save_history(result, input_prompt2)
     save_script(result.get('output'), 'forms.html')
